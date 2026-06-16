@@ -1,0 +1,176 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: #374151;
+  background-color: #ffffff;
+  overflow-x: hidden;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', sans-serif;
+  color: #0D1117;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+/* Tech tags and code-style elements */
+.font-mono, code, pre {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Always preserve white headings in dark sections */
+h1.text-white, h2.text-white, h3.text-white,
+h4.text-white, h5.text-white, h6.text-white {
+  color: #ffffff !important;
+}
+
+/* DVein branded button: #005ff7 base, white on hover */
+.btn-brand {
+  background-color: #005ff7 !important;
+  color: #ffffff !important;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.btn-brand:hover {
+  background-color: #ffffff !important;
+  color: #005ff7 !important;
+}
+
+/* DVein brand accent overrides */
+a {
+  color: #0056D2;
+}
+a:hover {
+  color: #10B981;
+}
+
+/* Allow individual component colors to override via Tailwind */
+[class*="text-"] h1,
+[class*="text-"] h2,
+[class*="text-"] h3,
+[class*="text-"] h4,
+[class*="text-"] h5,
+[class*="text-"] h6 {
+  color: inherit;
+}
+
+/* --- 1. CINEMATIC BACKGROUND --- */
+.ai-gradient-bg {
+  background-color: #ffffff;
+  background-image:
+    radial-gradient(at 0% 0%, hsla(253,16%,90%,1) 0, transparent 50%),
+    radial-gradient(at 50% 0%, hsla(225,39%,90%,1) 0, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(339,49%,90%,1) 0, transparent 50%);
+  background-attachment: fixed;
+}
+
+/* --- 2. HIDE SCROLLBAR --- */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* --- 3. SWIPER CUSTOMIZATION (Dots Only) --- */
+
+/* Hide Swiper default arrows globally — components that need arrows use custom buttons */
+.swiper-button-next, .swiper-button-prev {
+  display: none !important;
+}
+
+/* Re-enable arrows only inside .swiper-with-nav wrappers */
+.swiper-with-nav .swiper-button-next,
+.swiper-with-nav .swiper-button-prev {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 1.5px solid #e5e7eb;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  color: #1f2937;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+  top: 42%;
+}
+.swiper-with-nav .swiper-button-next:hover,
+.swiper-with-nav .swiper-button-prev:hover {
+  background: #0056D2;
+  color: #ffffff;
+  border-color: #0056D2;
+  box-shadow: 0 4px 16px rgba(0,86,210,0.25);
+  transform: scale(1.08);
+}
+.swiper-with-nav .swiper-button-next::after,
+.swiper-with-nav .swiper-button-prev::after {
+  font-size: 0.85rem;
+  font-weight: 900;
+}
+
+/* Show & Style Dots (Pagination) */
+.swiper-pagination {
+  position: absolute;
+  bottom: 0px !important;
+  display: block !important;
+}
+
+.swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background: #CBD5E1;
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+  width: 25px;
+  border-radius: 5px;
+  background: #0056D2 !important;
+}
+
+/* Ensure Slides have equal height */
+.swiper-slide {
+  height: auto !important;
+  display: flex;
+  height: 100%;
+}
+
+/* --- 4. MAP ANIMATION --- */
+@keyframes map-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+.map-glow {
+  animation: map-pulse 2s infinite;
+  border: 2px solid #10B981;
+}
+
+/* --- 5. FOOTER FLOATING ICONS --- */
+.floating-bubble,
+.floating-icon {
+  animation: float-motion 7s ease-in-out infinite;
+}
+.float-1 { animation-delay: 0s; }
+.float-2 { animation-delay: 0.8s; }
+.float-3 { animation-delay: 1.6s; }
+.float-4 { animation-delay: 2.4s; }
+
+@keyframes float-motion {
+  0%, 100% { transform: translate(0px, 0px) rotate(0deg); }
+  20% { transform: translate(-2px, -8px) rotate(-1deg); }
+  40% { transform: translate(4px, -4px) rotate(1deg); }
+  60% { transform: translate(-3px, 3px) rotate(-0.5deg); }
+  80% { transform: translate(2px, 6px) rotate(0.5deg); }
+}
+
+/* --- 6. CLIENT MARQUEE --- */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee 30s linear infinite; display: flex; width: max-content; }
