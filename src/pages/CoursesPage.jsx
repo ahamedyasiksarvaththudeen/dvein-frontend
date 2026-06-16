@@ -265,8 +265,13 @@ const CoursesPage = () => {
                 <span className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Phone no *</span>
                 <input
                   required
+                  type="tel"
+                  maxLength={10}
                   value={courseForm.phone}
-                  onChange={e => setCourseForm(p => ({ ...p, phone: e.target.value }))}
+                  onChange={e => {
+                    const val = e.target.value.replace(/\D/g, '').slice(0, 10);
+                    setCourseForm(p => ({ ...p, phone: val }));
+                  }}
                   className="mt-2 w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-4 text-sm outline-none focus:ring-2 focus:ring-indigo-200"
                   placeholder="+91 98765 43210"
                 />
@@ -440,7 +445,13 @@ const CoursesPage = () => {
                     onChange={e => setEnrollForm(p => ({...p, email: e.target.value}))} />
                   <input required placeholder="Phone / WhatsApp"
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-indigo-200"
-                    onChange={e => setEnrollForm(p => ({...p, phone: e.target.value}))} />
+                    type="tel"
+                    maxLength={10}
+                    value={enrollForm.phone}
+                    onChange={e => {
+                      const val = e.target.value.replace(/\D/g, '').slice(0, 10);
+                      setEnrollForm(p => ({...p, phone: val}));
+                    }} />
                   <select
                     required
                     value={enrollForm.course}
