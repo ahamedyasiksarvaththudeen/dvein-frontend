@@ -44,7 +44,6 @@ const CoursesPage = () => {
     phone: '',
     course: staticCourses[0]?.title || '',
     portfolio: '',
-    resume: null,
   });
   const [courseSubmitting, setCourseSubmitting] = useState(false);
   const [courseSuccess, setCourseSuccess] = useState(false);
@@ -110,7 +109,7 @@ const CoursesPage = () => {
       `*Email:* ${courseForm.email}`,
       `*Phone:* ${courseForm.phone}`,
       `*Portfolio:* ${courseForm.portfolio || 'Not provided'}`,
-      `*Resume:* ${courseForm.resume?.name || 'Not provided'}`,
+      `*Resume:* Not provided`,
       ``,
       `_Sent from DVein Website_`,
     ].join('\n');
@@ -222,7 +221,7 @@ const CoursesPage = () => {
       />
 
       {/* COURSE APPLICATION FORM */}
-      <section className="max-w-6xl mx-auto px-6 mb-28">
+      <section className="max-w-6xl mx-auto px-6 mt-16 mb-28">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -242,7 +241,10 @@ const CoursesPage = () => {
                 <input
                   required
                   value={courseForm.name}
-                  onChange={e => setCourseForm(p => ({ ...p, name: e.target.value }))}
+                  onChange={e => {
+                    const val = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+                    setCourseForm(p => ({ ...p, name: val }));
+                  }}
                   className="mt-2 w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-4 text-sm outline-none focus:ring-2 focus:ring-indigo-200"
                   placeholder="Your Name"
                 />
@@ -298,16 +300,6 @@ const CoursesPage = () => {
                 onChange={e => setCourseForm(p => ({ ...p, portfolio: e.target.value }))}
                 className="mt-2 w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-4 text-sm outline-none focus:ring-2 focus:ring-indigo-200"
                 placeholder="https://github.com/yourname"
-              />
-            </label>
-
-            <label className="block">
-              <span className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Resume (optional, PDF/DOC)</span>
-              <input
-                type="file"
-                accept=".pdf,.doc,.docx"
-                onChange={e => setCourseForm(p => ({ ...p, resume: e.target.files?.[0] || null }))}
-                className="mt-2 w-full text-sm text-slate-700"
               />
             </label>
 
@@ -435,10 +427,16 @@ const CoursesPage = () => {
                   <div className="grid grid-cols-2 gap-4">
                     <input required placeholder="First Name"
                       className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-indigo-200 w-full"
-                      onChange={e => setEnrollForm(p => ({...p, firstName: e.target.value}))} />
+                      onChange={e => {
+                        const val = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+                        setEnrollForm(p => ({...p, firstName: val}));
+                      }} />
                     <input required placeholder="Last Name"
                       className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-indigo-200 w-full"
-                      onChange={e => setEnrollForm(p => ({...p, lastName: e.target.value}))} />
+                      onChange={e => {
+                        const val = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+                        setEnrollForm(p => ({...p, lastName: val}));
+                      }} />
                   </div>
                   <input required type="email" placeholder="Email Address"
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-indigo-200"

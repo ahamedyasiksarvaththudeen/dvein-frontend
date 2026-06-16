@@ -261,7 +261,10 @@ const Training = () => {
                   <input
                     type="text" required
                     value={formData.firstName}
-                    onChange={e => setFormData(p => ({ ...p, firstName: e.target.value }))}
+                    onChange={e => {
+                      const val = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+                      setFormData(p => ({ ...p, firstName: val }));
+                    }}
                     className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all text-sm"
                     placeholder="Arjun"
                   />
@@ -271,7 +274,10 @@ const Training = () => {
                   <input
                     type="text" required
                     value={formData.lastName}
-                    onChange={e => setFormData(p => ({ ...p, lastName: e.target.value }))}
+                    onChange={e => {
+                      const val = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+                      setFormData(p => ({ ...p, lastName: val }));
+                    }}
                     className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all text-sm"
                     placeholder="Kumar"
                   />
@@ -293,8 +299,12 @@ const Training = () => {
                   <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Phone Number *</label>
                   <input
                     type="tel" required
+                    maxLength={10}
                     value={formData.phone}
-                    onChange={e => setFormData(p => ({ ...p, phone: e.target.value }))}
+                    onChange={e => {
+                      const val = e.target.value.replace(/\D/g, '').slice(0, 10);
+                      setFormData(p => ({ ...p, phone: val }));
+                    }}
                     className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all text-sm"
                     placeholder="+91 98765 43210"
                   />
@@ -344,18 +354,6 @@ const Training = () => {
                   onChange={e => setFormData(p => ({ ...p, portfolio: e.target.value }))}
                   className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all text-sm"
                   placeholder="https://github.com/yourname"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-                  Resume <span className="text-gray-300 font-normal">(optional, PDF/DOC)</span>
-                </label>
-                <input
-                  type="file"
-                  accept=".pdf,.doc,.docx"
-                  onChange={e => setResume(e.target.files[0])}
-                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-blue-500 transition-all text-sm text-gray-600 file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-blue-50 file:text-blue-700"
                 />
               </div>
 
