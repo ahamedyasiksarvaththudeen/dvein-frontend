@@ -161,7 +161,7 @@ export const defaultContent = {
     heading: "Meet the Crew",
     members: [
       { id: 1,  name: "Ms. Gopika Ayyavu",    role: "Founder & CEO",           image: "dir.jpeg"         },
-      { id: 2,  name: "Mr. Logesh",           role: "Manager Director",        image: "manager.jpeg"     },
+      { id: 2,  name: "Mr. Logesh",           role: "Managing Director",        image: "manager.jpeg"     },
       { id: 3,  name: "Ms. Sahana",           role: "Executive Head",          image: "executive.jpeg"   },
       { id: 4,  name: "Ms. Jayasri",          role: "HR Executive",            image: "jayasri.jpeg"     },
       { id: 5,  name: "Ms. Aruna",            role: "HR",                      image: "aruna.jpeg"       },
