@@ -427,12 +427,14 @@ const CoursesPage = () => {
                   <div className="grid grid-cols-2 gap-4">
                     <input required placeholder="First Name"
                       className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-indigo-200 w-full"
+                      value={enrollForm.firstName}
                       onChange={e => {
                         const val = e.target.value.replace(/[^a-zA-Z\s]/g, '');
                         setEnrollForm(p => ({...p, firstName: val}));
                       }} />
                     <input required placeholder="Last Name"
                       className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-indigo-200 w-full"
+                      value={enrollForm.lastName}
                       onChange={e => {
                         const val = e.target.value.replace(/[^a-zA-Z\s]/g, '');
                         setEnrollForm(p => ({...p, lastName: val}));
