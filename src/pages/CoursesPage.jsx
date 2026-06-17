@@ -47,6 +47,8 @@ const CoursesPage = () => {
   });
   const [courseSubmitting, setCourseSubmitting] = useState(false);
   const [courseSuccess, setCourseSuccess] = useState(false);
+  const [courseEmailError, setCourseEmailError] = useState('');
+  const [enrollEmailError, setEnrollEmailError] = useState('');
 
   const getWhatsAppLink = (phone, title) => {
     const text = `Hello DVein team, I am interested in the ${title} program. Please share the details.`;
@@ -62,6 +64,11 @@ const CoursesPage = () => {
 
   const handleEnroll = async (e) => {
     e.preventDefault();
+    if (!enrollForm.email.toLowerCase().endsWith('@gmail.com')) {
+      setEnrollEmailError('Only @gmail.com addresses are accepted.');
+      return;
+    }
+    setEnrollEmailError('');
     setEnrollSubmitting(true);
 
     // ── Build WhatsApp message ──
@@ -98,6 +105,11 @@ const CoursesPage = () => {
 
   const handleCourseSubmit = (e) => {
     e.preventDefault();
+    if (!courseForm.email.toLowerCase().endsWith('@gmail.com')) {
+      setCourseEmailError('Only @gmail.com addresses are accepted.');
+      return;
+    }
+    setCourseEmailError('');
     setCourseSubmitting(true);
 
     const selected = selectedCourseItem || { title: courseForm.course, whatsappNumber: WA_NUMBER };
@@ -255,10 +267,21 @@ const CoursesPage = () => {
                   type="email"
                   required
                   value={courseForm.email}
-                  onChange={e => setCourseForm(p => ({ ...p, email: e.target.value }))}
-                  className="mt-2 w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-4 text-sm outline-none focus:ring-2 focus:ring-indigo-200"
-                  placeholder="you@example.com"
+                  onChange={e => {
+                    const val = e.target.value;
+                    setCourseForm(p => ({ ...p, email: val }));
+                    if (val && !val.toLowerCase().endsWith('@gmail.com')) {
+                      setCourseEmailError('Only @gmail.com addresses are accepted.');
+                    } else {
+                      setCourseEmailError('');
+                    }
+                  }}
+                  className={`mt-2 w-full bg-slate-50 border rounded-2xl px-4 py-4 text-sm outline-none focus:ring-2 ${courseEmailError ? 'border-red-400 focus:ring-red-200' : 'border-slate-200 focus:ring-indigo-200'}`}
+                  placeholder="you@gmail.com"
                 />
+                {courseEmailError && (
+                  <p className="mt-1 text-xs text-red-500">{courseEmailError}</p>
+                )}
               </label>
             </div>
 
@@ -440,9 +463,23 @@ const CoursesPage = () => {
                         setEnrollForm(p => ({...p, lastName: val}));
                       }} />
                   </div>
-                  <input required type="email" placeholder="Email Address"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-indigo-200"
-                    onChange={e => setEnrollForm(p => ({...p, email: e.target.value}))} />
+                  <div>
+                    <input required type="email" placeholder="Email Address (Gmail only)"
+                      className={`w-full bg-slate-50 border rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 ${enrollEmailError ? 'border-red-400 focus:ring-red-200' : 'border-slate-200 focus:ring-indigo-200'}`}
+                      value={enrollForm.email}
+                      onChange={e => {
+                        const val = e.target.value;
+                        setEnrollForm(p => ({...p, email: val}));
+                        if (val && !val.toLowerCase().endsWith('@gmail.com')) {
+                          setEnrollEmailError('Only @gmail.com addresses are accepted.');
+                        } else {
+                          setEnrollEmailError('');
+                        }
+                      }} />
+                    {enrollEmailError && (
+                      <p className="mt-1 text-xs text-red-500">{enrollEmailError}</p>
+                    )}
+                  </div>
                   <input required placeholder="Phone / WhatsApp"
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-indigo-200"
                     type="tel"
