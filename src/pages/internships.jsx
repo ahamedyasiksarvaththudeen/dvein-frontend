@@ -124,6 +124,14 @@ const Training = () => {
     }
 
     e.target.email.setCustomValidity('');
+
+    if (!/^\d{10}$/.test(formData.phone)) {
+      e.target.phone.setCustomValidity('Please enter exactly 10 digits.');
+      e.target.phone.reportValidity();
+      return;
+    }
+
+    e.target.phone.setCustomValidity('');
     setSubmitting(true);
     setSubmitStatus(null);
 
@@ -312,10 +320,15 @@ const Training = () => {
                 <div className="space-y-2">
                   <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Phone Number *</label>
                   <input
+                    name="phone"
                     type="tel" required
+                    inputMode="numeric"
                     maxLength={10}
+                    pattern="^\d{10}$"
+                    title="Please enter exactly 10 digits."
                     value={formData.phone}
                     onChange={e => {
+                      e.target.setCustomValidity('');
                       const val = e.target.value.replace(/\D/g, '').slice(0, 10);
                       setFormData(p => ({ ...p, phone: val }));
                     }}

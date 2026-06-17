@@ -484,8 +484,8 @@ export const defaultContent = {
       description: "Upskill your career with DVein Innovations",
     },
     panels: [
-      { _id: 1, tag: "CLIENT COMPANIES",  heading: "Recruitments", description: "Explore curated opportunities with our trusted clients. Roles in design, product, and growth teams.", image: "client-img.jpg" },
-      { _id: 2, tag: "DVEIN INNOVATIONS", heading: "Recruitments", description: "Discover internal openings at DVein. Build products, systems, and strategy with our core team.",    image: "logo.png" },
+      { _id: 1, tag: "CLIENT COMPANIES",  heading: "Recruitments", description: "Explore curated opportunities with our trusted clients. Roles in design, product, and growth teams.", image: "client-img.jpg", posters: [], documents: [] },
+      { _id: 2, tag: "DVEIN INNOVATIONS", heading: "Recruitments", description: "Discover internal openings at DVein. Build products, systems, and strategy with our core team.",    image: "logo.png", posters: [], documents: [] },
     ],
     successStory: {
       heading:     "Our Success Story",

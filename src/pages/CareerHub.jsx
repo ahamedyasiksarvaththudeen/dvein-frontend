@@ -119,14 +119,19 @@ const CareerHub = () => {
         <div className="max-w-5xl w-full grid gap-6 md:grid-cols-2">
           {cmsPanels.map((panel, i) => (
             <div key={panel._id || i} className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-6 text-left shadow-sm">
-              <div className="relative h-56 overflow-hidden rounded-[2rem] mb-6">
+              <Link to={`/career-hub/requirements/${panel._id ?? i}`} className="relative h-56 overflow-hidden rounded-[2rem] mb-6 block group cursor-pointer">
                 <img
                   src={resolvePanel(panel.image) || (i === 0 ? clientImg : dveinLogo)}
                   alt={panel.tag}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   onError={e => { e.target.src = i === 0 ? clientImg : dveinLogo; }}
                 />
-              </div>
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center">
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-white text-slate-900 text-[11px] font-black uppercase tracking-widest px-5 py-2.5 rounded-full shadow-lg">
+                    View Requirements
+                  </span>
+                </div>
+              </Link>
               <span className="text-[11px] font-black uppercase tracking-[0.35em] text-slate-900 mb-3 block">{panel.tag}</span>
               <h2 className="text-3xl font-bold tracking-tight text-slate-900 mb-4 font-heading">{panel.heading}</h2>
               <p className="text-slate-600 text-sm leading-relaxed mb-6">{panel.description}</p>
