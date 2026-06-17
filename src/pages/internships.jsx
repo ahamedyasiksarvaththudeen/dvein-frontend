@@ -40,7 +40,6 @@ const marqueeStyle = `
 `;
 
 const GMAIL_EMAIL_PATTERN = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
-const MAX_RESUME_SIZE_BYTES = 20 * 1024 * 1024;
 
 const STATIC_DATA = {
   domains: [
@@ -100,7 +99,6 @@ const Training = () => {
   const [formData, setFormData] = useState({
     firstName: '', lastName: '', email: '', phone: '', portfolio: '', jobTitle: ''
   });
-  const [resume, setResume] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
 
@@ -118,7 +116,6 @@ const Training = () => {
   const handleApply = async (e) => {
     e.preventDefault();
     const normalizedEmail = formData.email.trim().toLowerCase();
-    const resumeInput = e.target.resume;
 
     if (!GMAIL_EMAIL_PATTERN.test(normalizedEmail)) {
       e.target.email.setCustomValidity('Please enter a Gmail address ending with @gmail.com.');
@@ -127,14 +124,6 @@ const Training = () => {
     }
 
     e.target.email.setCustomValidity('');
-
-    if (resume && resume.size > MAX_RESUME_SIZE_BYTES) {
-      resumeInput.setCustomValidity('Resume file size must be 20 MB or less.');
-      resumeInput.reportValidity();
-      return;
-    }
-
-    resumeInput.setCustomValidity('');
     setSubmitting(true);
     setSubmitStatus(null);
 
@@ -153,7 +142,6 @@ const Training = () => {
     try {
       const dataToSend = new FormData();
       Object.keys(formData).forEach(key => dataToSend.append(key, formData[key]));
-      if (resume) dataToSend.append('resume', resume);
       await fetch('/api/public/apply', {
         method: 'POST',
         body: dataToSend,
@@ -167,7 +155,6 @@ const Training = () => {
 
     setSubmitStatus('success');
     setFormData({ firstName: '', lastName: '', email: '', phone: '', portfolio: '', jobTitle: '' });
-    setResume(null);
     e.target.reset();
     setSubmitting(false);
   };
@@ -381,31 +368,6 @@ const Training = () => {
                   onChange={e => setFormData(p => ({ ...p, portfolio: e.target.value }))}
                   className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all text-sm"
                   placeholder="https://github.com/yourname"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-                  Resume <span className="text-gray-300 font-normal">(optional, max 20 MB)</span>
-                </label>
-                <input
-                  name="resume"
-                  type="file"
-                  accept=".pdf,.doc,.docx"
-                  onChange={e => {
-                    const file = e.target.files?.[0] || null;
-                    if (file && file.size > MAX_RESUME_SIZE_BYTES) {
-                      e.target.setCustomValidity('Resume file size must be 20 MB or less.');
-                      e.target.reportValidity();
-                      e.target.value = '';
-                      setResume(null);
-                      return;
-                    }
-
-                    e.target.setCustomValidity('');
-                    setResume(file);
-                  }}
-                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all text-sm file:mr-4 file:rounded-lg file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-sm file:font-bold file:text-blue-600 hover:file:bg-blue-100"
                 />
               </div>
 
