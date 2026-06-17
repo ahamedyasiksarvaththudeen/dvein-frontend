@@ -39,6 +39,8 @@ const marqueeStyle = `
   .animate-marquee { animation: marquee 30s linear infinite; }
 `;
 
+const GMAIL_EMAIL_PATTERN = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+
 const STATIC_DATA = {
   domains: [
     { _id: 1,  title: "Full Stack Java",               iconName: "FaCode",            color: "text-blue-600",    desc: "Build enterprise-grade applications with Java, Spring Boot, REST APIs, and scalable backend systems.",      skills: ["Java", "Spring Boot", "REST API", "MySQL"] },
@@ -114,6 +116,15 @@ const Training = () => {
 
   const handleApply = async (e) => {
     e.preventDefault();
+    const normalizedEmail = formData.email.trim().toLowerCase();
+
+    if (!GMAIL_EMAIL_PATTERN.test(normalizedEmail)) {
+      e.target.email.setCustomValidity('Please enter a Gmail address ending with @gmail.com.');
+      e.target.email.reportValidity();
+      return;
+    }
+
+    e.target.email.setCustomValidity('');
     setSubmitting(true);
     setSubmitStatus(null);
 
@@ -288,9 +299,15 @@ const Training = () => {
                 <div className="space-y-2">
                   <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Email Address *</label>
                   <input
+                    name="email"
                     type="email" required
+                    pattern="^[a-zA-Z0-9._%+\-]+@gmail\.com$"
+                    title="Please enter a Gmail address ending with @gmail.com."
                     value={formData.email}
-                    onChange={e => setFormData(p => ({ ...p, email: e.target.value }))}
+                    onChange={e => {
+                      e.target.setCustomValidity('');
+                      setFormData(p => ({ ...p, email: e.target.value }));
+                    }}
                     className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all text-sm"
                     placeholder="arjun@gmail.com"
                   />
