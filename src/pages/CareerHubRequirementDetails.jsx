@@ -36,7 +36,7 @@ const CareerHubRequirementDetails = () => {
     <div className="font-sans text-slate-900 bg-gradient-to-br from-blue-50 via-white to-indigo-50 min-h-screen pt-24 pb-20 selection:bg-purple-600 selection:text-white overflow-x-hidden">
       <div className="max-w-5xl mx-auto px-6">
         <Link to="/career-hub" className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 text-xs font-bold uppercase tracking-widest mb-8 transition-colors">
-          <FaArrowLeft /> Back to Career Hub
+          <FaArrowLeft /> Back to the Career Hub
         </Link>
 
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="relative h-72 md:h-96 overflow-hidden rounded-[2rem] shadow-xl border border-slate-100 mb-10">
